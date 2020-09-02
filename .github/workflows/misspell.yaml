@@ -14,7 +14,7 @@ jobs:
         uses: reviewdog/action-misspell@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          locale: "UK"
+          locale: "US"
           reporter: github-check
           filter_mode: nofilter
           level: error
