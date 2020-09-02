@@ -12,7 +12,7 @@ jobs:
         uses: actions/setup-python@v2
       - name: Install prerequisites
         run: ./bin/install-ubuntu.sh
-      - name: initialise Terraform
+      - name: initialize Terraform
         run: terraform init --backend=false
       - name: pre-commit
         uses: pre-commit/action@v2.0.0
