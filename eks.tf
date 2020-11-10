@@ -94,7 +94,7 @@ module "eks" {
   cluster_name    = module.default_label.id
   vpc_id          = local.vpc_id
   subnets         = local.subnets
-  tags            = module.application_label.id
+  tags            = module.application_label.tags
   map_roles = [
     {
       rolearn  = aws_iam_role.workers.arn
