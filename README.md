@@ -21,7 +21,7 @@ module "ocean_eks" {
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.13.0 |
+| terraform | >= 0.13.5 |
 
 ## Providers
 
