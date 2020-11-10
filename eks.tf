@@ -22,6 +22,7 @@ provider "aws" {
 resource "aws_security_group" "all_worker_mgmt" {
   name   = "${module.default_label.id}-all-worker-management"
   vpc_id = local.vpc_id
+  tags   = module.default_label.tags
 
   ingress {
     from_port = 22
@@ -38,6 +39,7 @@ resource "aws_iam_role" "workers" {
   name                  = module.default_label.id
   assume_role_policy    = data.aws_iam_policy_document.workers_assume_role_policy.json
   force_detach_policies = true
+  tags                  = module.default_label.tags
 }
 
 resource "aws_iam_instance_profile" "workers" {
