@@ -11,7 +11,7 @@ variable "spotinst_account" {
 variable "region" {
   type        = string
   description = "The region the EKS cluster will be located"
-  default     = null
+  default     = "eu-central-1"
 }
 
 variable "cluster_identifier" {
@@ -59,19 +59,19 @@ variable "tags" {
 variable "min_size" {
   type        = number
   description = "The lower limit of worker nodes the Ocean cluster can scale down to"
-  default     = null
+  default     = 1
 }
 
 variable "max_size" {
   type        = number
   description = "The upper limit of worker nodes the Ocean cluster can scale up to"
-  default     = null
+  default     = 1000
 }
 
 variable "key_name" {
   type        = string
   description = "The key pair to attach to the worker nodes launched by Ocean"
-  default     = null
+  default     = "admin"
 }
 
 variable "associate_public_ip_address" {
