@@ -44,13 +44,13 @@ module "ocean_eks" {
 | cluster\_name | Cluster name | `string` | `null` | no |
 | cluster\_version | Kubernetes supported version | `string` | `"1.18"` | no |
 | create\_vpc | Controls if VPC should be created (it affects almost all resources) | `bool` | `true` | no |
-| key\_name | The key pair to attach to the worker nodes launched by Ocean | `string` | `null` | no |
-| max\_size | The upper limit of worker nodes the Ocean cluster can scale up to | `number` | `null` | no |
-| min\_size | The lower limit of worker nodes the Ocean cluster can scale down to | `number` | `null` | no |
+| key\_name | The key pair to attach to the worker nodes launched by Ocean | `string` | `"admin"` | no |
+| max\_size | The upper limit of worker nodes the Ocean cluster can scale up to | `number` | `1000` | no |
+| min\_size | The lower limit of worker nodes the Ocean cluster can scale down to | `number` | `1` | no |
 | private\_subnet\_ids | A ID's of private subnets inside the VPC (only needed if no vpc is created) | `list(string)` | `[]` | no |
 | private\_subnets | A list of private subnets inside the VPC (only needed if new vpc is created) | `list(string)` | `[]` | no |
 | public\_subnets | A list of public subnets inside the VPC (only needed if new vpc is created) | `list(string)` | `[]` | no |
-| region | The region the EKS cluster will be located | `string` | `null` | no |
+| region | The region the EKS cluster will be located | `string` | `"eu-central-1"` | no |
 | subnets | A list of subnets to place the EKS cluster and workers within | `list(string)` | `null` | no |
 | tags | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | vpc\_id | VPC where the cluster and workers will be deployed | `string` | `null` | no |
