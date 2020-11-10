@@ -13,7 +13,7 @@ provider "kubernetes" {
 resource "spotinst_ocean_aws" "this" {
   depends_on = [module.eks]
 
-  name                        = var.cluster_name
+  name                        = module.default_label.id
   controller_id               = local.cluster_identifier
   region                      = data.aws_region.current.id
   max_size                    = var.max_size
@@ -28,15 +28,31 @@ resource "spotinst_ocean_aws" "this" {
   user_data = <<-EOF
     #!/bin/bash
     set -o xtrace
-    /etc/eks/bootstrap.sh ${var.cluster_name}
+    /etc/eks/bootstrap.sh ${module.default_label.id}
 EOF
 
   tags {
     key   = "Name"
-    value = "${var.cluster_name}-node"
+    value = "${module.default_label.id}-node"
   }
+
   tags {
-    key   = "kubernetes.io/cluster/${var.cluster_name}"
+    key   = "Project"
+    value = module.default_label.project
+  }
+
+  tags {
+    key   = "Environment"
+    value = module.default_label.environment
+  }
+
+  tags {
+    key   = "Application"
+    value = module.default_label.application
+  }
+
+  tags {
+    key   = "kubernetes.io/cluster/${module.default_label.id}"
     value = "owned"
   }
 

@@ -1,9 +1,26 @@
+module "default_label" {
+  source      = "applike/label/aws"
+  version     = "1.0.1"
+  application = var.application
+  project     = var.project
+  environment = var.environment
+  tags        = var.tags
+}
+
+module "vpc_label" {
+  source      = "applike/label/aws"
+  version     = "1.0.1"
+  project     = var.project
+  environment = var.environment
+  tags        = var.tags
+}
+
 provider "aws" {
   region = var.region
 }
 
 resource "aws_security_group" "all_worker_mgmt" {
-  name   = "${var.cluster_name}-eks-all-worker-management"
+  name   = "${module.default_label.id}-all-worker-management"
   vpc_id = local.vpc_id
 
   ingress {
@@ -18,13 +35,13 @@ resource "aws_security_group" "all_worker_mgmt" {
 }
 
 resource "aws_iam_role" "workers" {
-  name                  = "${var.cluster_name}-eks"
+  name                  = module.default_label.id
   assume_role_policy    = data.aws_iam_policy_document.workers_assume_role_policy.json
   force_detach_policies = true
 }
 
 resource "aws_iam_instance_profile" "workers" {
-  name = "${var.cluster_name}-eks"
+  name = module.default_label.id
   role = aws_iam_role.workers.name
 }
 
@@ -55,7 +72,7 @@ module "vpc" {
   version = "2.64.0"
 
   create_vpc         = var.vpc_id == null
-  name               = var.vpc_name
+  name               = module.vpc_label.id
   azs                = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
   cidr               = var.cidr
   private_subnets    = var.private_subnets
@@ -63,9 +80,9 @@ module "vpc" {
   enable_nat_gateway = true
   single_nat_gateway = true
   tags = merge(
-    var.tags,
+    module.vpc_label.tags,
     {
-      "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+      "kubernetes.io/cluster/${module.default_label.id}" = "shared"
     },
   )
 }
@@ -75,10 +92,10 @@ module "eks" {
   version = "12.2.0"
 
   cluster_version = var.cluster_version
-  cluster_name    = var.cluster_name
+  cluster_name    = module.default_label.id
   vpc_id          = local.vpc_id
   subnets         = local.subnets
-  tags            = var.tags
+  tags            = module.default_label.id
   map_roles = [
     {
       rolearn  = aws_iam_role.workers.arn

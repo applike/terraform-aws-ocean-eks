@@ -1,3 +1,21 @@
+variable "project" {
+  type        = string
+  default     = null
+  description = "Project, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
+}
+
+variable "environment" {
+  type        = string
+  default     = null
+  description = "Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'"
+}
+
+variable "application" {
+  type        = string
+  default     = null
+  description = "Solution application, e.g. 'app' or 'jenkins'"
+}
+
 variable "spotinst_token" {
   type        = string
   description = "Spot Personal Access token"
@@ -20,12 +38,6 @@ variable "cluster_identifier" {
   default     = null
 }
 
-variable "cluster_name" {
-  type        = string
-  description = "Cluster name"
-  default     = null
-}
-
 variable "cluster_version" {
   type        = string
   description = "Kubernetes supported version"
@@ -41,12 +53,6 @@ variable "subnets" {
 variable "vpc_id" {
   type        = string
   description = "VPC where the cluster and workers will be deployed"
-  default     = null
-}
-
-variable "vpc_name" {
-  type        = string
-  description = "VPC name"
   default     = null
 }
 
