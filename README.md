@@ -53,7 +53,6 @@ module "ocean_eks" {
 | public\_subnets | A list of public subnets inside the VPC (only needed if new vpc is created) | `list(string)` | `[]` | no |
 | region | The region the EKS cluster will be located | `string` | `"eu-central-1"` | no |
 | subnets | A list of subnets to place the EKS cluster and workers within | `list(string)` | `null` | no |
-| tags | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | vpc\_id | VPC where the cluster and workers will be deployed | `string` | `null` | no |
 
 ## Outputs
