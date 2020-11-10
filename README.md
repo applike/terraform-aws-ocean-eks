@@ -37,23 +37,24 @@ module "ocean_eks" {
 | spotinst\_account | Spot account ID | `string` | n/a | yes |
 | spotinst\_token | Spot Personal Access token | `string` | n/a | yes |
 | ami\_id | The image ID for the EKS worker nodes. If none is provided, Terraform will search for the latest version of their EKS optimized worker AMI based on platform | `string` | `null` | no |
+| application | Solution application, e.g. 'app' or 'jenkins' | `string` | `null` | no |
 | associate\_public\_ip\_address | Associate a public IP address to worker nodes | `bool` | `false` | no |
 | cidr | The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden (only needed if new vpc is created) | `string` | `"0.0.0.0/0"` | no |
 | cluster\_identifier | Cluster identifier | `string` | `null` | no |
-| cluster\_name | Cluster name | `string` | `null` | no |
 | cluster\_version | Kubernetes supported version | `string` | `"1.18"` | no |
 | create\_vpc | Controls if VPC should be created (it affects almost all resources) | `bool` | `true` | no |
+| environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | key\_name | The key pair to attach to the worker nodes launched by Ocean | `string` | `"admin"` | no |
 | max\_size | The upper limit of worker nodes the Ocean cluster can scale up to | `number` | `1000` | no |
 | min\_size | The lower limit of worker nodes the Ocean cluster can scale down to | `number` | `1` | no |
 | private\_subnet\_ids | A ID's of private subnets inside the VPC (only needed if no vpc is created) | `list(string)` | `[]` | no |
 | private\_subnets | A list of private subnets inside the VPC (only needed if new vpc is created) | `list(string)` | `[]` | no |
+| project | Project, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
 | public\_subnets | A list of public subnets inside the VPC (only needed if new vpc is created) | `list(string)` | `[]` | no |
 | region | The region the EKS cluster will be located | `string` | `"eu-central-1"` | no |
 | subnets | A list of subnets to place the EKS cluster and workers within | `list(string)` | `null` | no |
 | tags | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | vpc\_id | VPC where the cluster and workers will be deployed | `string` | `null` | no |
-| vpc\_name | VPC name | `string` | `null` | no |
 
 ## Outputs
 
