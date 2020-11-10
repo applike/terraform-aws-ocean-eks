@@ -33,22 +33,22 @@ EOF
 
   tags {
     key   = "Name"
-    value = "${module.default_label.id}-node"
+    value = "${module.application_label.id}-node"
   }
 
   tags {
     key   = "Project"
-    value = module.default_label.project
+    value = module.application_label.project
   }
 
   tags {
     key   = "Environment"
-    value = module.default_label.environment
+    value = module.application_label.environment
   }
 
   tags {
     key   = "Application"
-    value = module.default_label.application
+    value = module.application_label.application
   }
 
   tags {
@@ -62,7 +62,7 @@ EOF
   }
 }
 
-module "ocean-controller" {
+module "ocean_controller" {
   source            = "spotinst/ocean-controller/spotinst"
   version           = ">=0.9.0"
   module_depends_on = [module.eks] # maintains backward compatibility with terraform v0.12

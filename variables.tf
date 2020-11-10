@@ -62,12 +62,6 @@ variable "ami_id" {
   default     = null
 }
 
-variable "tags" {
-  type        = map(string)
-  description = "A map of tags to add to all resources"
-  default     = {}
-}
-
 variable "min_size" {
   type        = number
   description = "The lower limit of worker nodes the Ocean cluster can scale down to"
