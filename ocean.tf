@@ -31,13 +31,14 @@ resource "spotinst_ocean_aws" "this" {
     /etc/eks/bootstrap.sh ${var.cluster_name}
 EOF
 
-  tags = merge(
-    var.tags,
-    {
-      "Name"                                      = "${var.cluster_name}-eks-node"
-      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-    },
-  )
+  tags {
+    key   = "Name"
+    value = "${var.cluster_name}-node"
+  }
+  tags {
+    key   = "kubernetes.io/cluster/${var.cluster_name}"
+    value = "owned"
+  }
 
   autoscaler {
     autoscale_is_enabled     = true
