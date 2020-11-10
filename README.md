@@ -28,7 +28,6 @@ module "ocean_eks" {
 | Name | Version |
 |------|---------|
 | aws | n/a |
-| random | n/a |
 | spotinst | n/a |
 
 ## Inputs
@@ -54,6 +53,7 @@ module "ocean_eks" {
 | subnets | A list of subnets to place the EKS cluster and workers within | `list(string)` | `null` | no |
 | tags | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | vpc\_id | VPC where the cluster and workers will be deployed | `string` | `null` | no |
+| vpc\_name | VPC name | `string` | `null` | no |
 
 ## Outputs
 
