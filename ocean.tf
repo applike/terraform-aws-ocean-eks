@@ -13,7 +13,7 @@ provider "kubernetes" {
 resource "spotinst_ocean_aws" "this" {
   depends_on = [module.eks]
 
-  name                        = local.cluster_name
+  name                        = var.cluster_name
   controller_id               = local.cluster_identifier
   region                      = data.aws_region.current.id
   max_size                    = var.max_size
@@ -28,21 +28,16 @@ resource "spotinst_ocean_aws" "this" {
   user_data = <<-EOF
     #!/bin/bash
     set -o xtrace
-    /etc/eks/bootstrap.sh ${local.cluster_name}
+    /etc/eks/bootstrap.sh ${var.cluster_name}
 EOF
 
-  tags {
-    key   = "Name"
-    value = "${local.cluster_name}-node"
-  }
-  tags {
-    key   = "kubernetes.io/cluster/${local.cluster_name}"
-    value = "owned"
-  }
-  tags {
-    key   = "create-alarms"
-    value = "false"
-  }
+  tags = merge(
+    var.tags,
+    {
+      "Name"                                      = "${var.cluster_name}-eks-node"
+      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+    },
+  )
 
   autoscaler {
     autoscale_is_enabled     = true

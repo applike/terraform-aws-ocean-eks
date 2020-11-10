@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "all_worker_mgmt" {
-  name   = "${var.cluster_name}_all_worker_management"
+  name   = "${var.cluster_name}-eks-all-worker-management"
   vpc_id = local.vpc_id
 
   ingress {
@@ -18,14 +18,14 @@ resource "aws_security_group" "all_worker_mgmt" {
 }
 
 resource "aws_iam_role" "workers" {
-  name_prefix           = local.cluster_name
+  name                  = "${var.cluster_name}-eks"
   assume_role_policy    = data.aws_iam_policy_document.workers_assume_role_policy.json
   force_detach_policies = true
 }
 
 resource "aws_iam_instance_profile" "workers" {
-  name_prefix = local.cluster_name
-  role        = aws_iam_role.workers.name
+  name = "${var.cluster_name}-eks"
+  role = aws_iam_role.workers.name
 }
 
 resource "aws_iam_role_policy_attachment" "workers_AmazonEKSWorkerNodePolicy" {
@@ -55,7 +55,7 @@ module "vpc" {
   version = "2.64.0"
 
   create_vpc         = var.vpc_id == null
-  name               = local.cluster_name
+  name               = var.vpc_name
   azs                = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
   cidr               = var.cidr
   private_subnets    = var.private_subnets
@@ -65,7 +65,7 @@ module "vpc" {
   tags = merge(
     var.tags,
     {
-      "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+      "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     },
   )
 }
@@ -75,7 +75,7 @@ module "eks" {
   version = "12.2.0"
 
   cluster_version = var.cluster_version
-  cluster_name    = local.cluster_name
+  cluster_name    = var.cluster_name
   vpc_id          = local.vpc_id
   subnets         = local.subnets
   tags            = var.tags

@@ -44,6 +44,12 @@ variable "vpc_id" {
   default     = null
 }
 
+variable "vpc_name" {
+  type        = string
+  description = "VPC name"
+  default     = null
+}
+
 variable "ami_id" {
   type        = string
   description = "The image ID for the EKS worker nodes. If none is provided, Terraform will search for the latest version of their EKS optimized worker AMI based on platform"
