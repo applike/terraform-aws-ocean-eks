@@ -78,12 +78,11 @@ module "vpc" {
   public_subnets     = var.public_subnets
   enable_nat_gateway = true
   single_nat_gateway = true
-  tags = merge(
-    module.default_label.tags,
-    {
-      "kubernetes.io/cluster/${module.default_label.id}" = "shared"
-    },
-  )
+  tags = {
+    "Project"                                          = module.default_label.project
+    "Environment"                                      = module.default_label.environment
+    "kubernetes.io/cluster/${module.default_label.id}" = "shared"
+  }
 }
 
 module "eks" {
