@@ -75,6 +75,7 @@ module "ocean_eks" {
 | ocean\_cluster\_id | The ID of the Ocean cluster |
 | ocean\_controller\_id | The ID of the Ocean controller |
 | oidc\_provider\_arn | The ARN of the OIDC Provider if `enable_irsa = true` |
+| vpc\_id | The ID of the VPC |
 | worker\_iam\_role\_arn | Default IAM role ARN for EKS worker groups |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
