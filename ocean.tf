@@ -64,7 +64,6 @@ EOF
 
 module "ocean_controller" {
   source            = "spotinst/ocean-controller/spotinst"
-  version           = ">=0.9.0"
   module_depends_on = [module.eks] # maintains backward compatibility with terraform v0.12
 
   # Credentials.
